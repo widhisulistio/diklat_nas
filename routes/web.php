@@ -29,3 +29,12 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+//Route::controller(\App\Http\Controllers\RoleController::class)->group(function (){
+//   Route::get('roles', 'index');  //pakai ini kalo pengaturannya ijinnya di role controller
+//Route::controller(\App\Http\Controllers\RoleController::class)->group(function (){
+//   Route::get('roles', 'index')->middleware('can: read role');
+//   Route::get('roles/create', 'create')->middleware('can: read create');
+//});
+
+Route::resource('roles', \App\Http\Controllers\RoleController::class);
