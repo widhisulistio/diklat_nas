@@ -18,7 +18,7 @@ class RoleController extends Controller
        //bisa juga melalui web atau route nya
 
        //return 'role page';
-       return view('role.index');
+       return view('konfigurasi.role');
    }
 
    public function create(): string

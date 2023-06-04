@@ -37,4 +37,8 @@ require __DIR__.'/auth.php';
 //   Route::get('roles/create', 'create')->middleware('can: read create');
 //});
 
-Route::resource('roles', \App\Http\Controllers\RoleController::class);
+//Route::resource('roles', \App\Http\Controllers\RoleController::class);
+
+Route::middleware('auth')->group(function () {
+    Route::resource('konfigurasi/roles',\App\Http\Controllers\RoleController::class);
+});
