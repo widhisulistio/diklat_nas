@@ -32,10 +32,10 @@ class RoleDataTable extends DataTable
             ->addColumn('action', function ($row){
                 $action = '';
                 if(auth()->user()->can('update role')){
-                    $action = '<button type="button" class="btn mb-2 btn-primary btn-sm"><i class="ti-pencil"></i></button>';
+                    $action = '<button type="button" data-id='.$row->id.' data-jenis="edit" class="btn mb-2 btn-primary btn-sm action"><i class="ti-pencil"></i></button>';
                 }
                 if(auth()->user()->can('delete role')){
-                    $action .= '<button type="button" class="btn mb-2 btn-danger btn-sm"><i class="ti-trash"></i></button>';
+                    $action .= ' <button type="button" data-id='.$row->id.' data-jenis="delete" class="btn mb-2 btn-danger btn-sm action"><i class="ti-trash"></i></button>';
                 }
                 return $action;
 
@@ -57,6 +57,7 @@ class RoleDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
+                    ->parameters(['searchDelay'=>1000])
                     ->setTableId('role-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
@@ -78,7 +79,7 @@ class RoleDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(80)
                 ->addClass('text-center'),
         ];
     }

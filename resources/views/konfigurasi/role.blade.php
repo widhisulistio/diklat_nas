@@ -18,14 +18,24 @@
                             <h4>Roles</h4>
                         </div>
                         <div class="card-body">
+                            @if (request()->user()->can('create role'))
+                                <button type="button" class="btn mb-2 btn-primary mb-3">Tambah Data</button>'
+                            @endif
                             {{ $dataTable->table() }}
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalAction" tabindex="-1" aria-labelledby="largeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
 
             </div>
         </div>
-
     </div>
+
+
 @endsection
 
 @push('js')
@@ -35,4 +45,26 @@
             <script src="{{ asset('') }}vendor/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
             <script src="{{ asset('') }}vendor/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
             {{ $dataTable->scripts() }}
+            <script>
+                const modal = new bootstrap.Modal($('#modalAction'))
+                $('#role-table').on('click','.action', function (){
+                    let data = $(this).data()
+                    let id = data.id
+                    let jenis = data.jenis
+
+                    $.ajax({
+                        method:'get',
+                        url: '{{ url('konfigurasi/roles/') }}/${id}/edit',
+                        success:function (res){
+                            console.log(res);
+                        },
+                        error: function (xhr){
+                            console.log(xhr.responseText);
+                        }
+                    });
+
+                    modal.show()
+                    console.log(data);
+                });
+            </script>
 @endpush

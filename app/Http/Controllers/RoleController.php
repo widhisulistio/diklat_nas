@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RoleDataTable;
+use App\Models\Role;
 use http\Env\Request;
 use Illuminate\Auth\Access\Gate;
 
@@ -26,5 +27,10 @@ class RoleController extends Controller
    public function create(): string
    {
        return 'create role page';
+   }
+
+   public function edit(Role $role)
+   {
+        return view('konfigurasi.role-action', compact('role'));
    }
 }
